@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Nakshatra Observatory: stargazing nights, telescope sessions and astrophotography workshops under dark skies, ninety minutes from Hyderabad.">
+<title>Nakshatra Observatory · Dark-Sky Stargazing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#070B1A;--dusk:#121A3F;--star:#F2EBDD;--amber:#FFB547;--line:rgba(242,235,221,.16);--out:cubic-bezier(.2,.8,.2,1);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;background:var(--night)}
+body{margin:0;color:var(--star);font:300 17px/1.7 'Hanken Grotesk',system-ui,sans-serif;overflow-x:hidden;background:radial-gradient(120% 70% at 80% -10%,#1a2660 0%,transparent 60%),radial-gradient(90% 60% at 0% 40%,#101a45 0%,transparent 60%),var(--night);background-attachment:fixed;padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;line-height:.95;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(3.6rem,10vw,9rem)}
+h2{font-size:clamp(2.8rem,6.4vw,5.4rem)}
+h3{font-size:1.9rem;line-height:1}
+em{font-style:italic}
+p{margin:0 0 1em;max-width:50ch;opacity:.86}
+a{color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+svg{display:block}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.mono{font:500 .74rem 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.14em;opacity:.75}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+section{padding:130px 0;position:relative}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+main,footer,.nav{position:relative;z-index:2}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--night);border:0;border-radius:999px;padding:15px 30px;font:500 1rem 'Hanken Grotesk',sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 0 0 0 rgba(255,181,71,.5);transition:box-shadow .5s var(--out),transform .4s var(--out)}
+.btn:hover{box-shadow:0 0 36px 4px rgba(255,181,71,.5);transform:translateY(-2px)}
+.btn.g{background:transparent;color:var(--star);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.g:hover{box-shadow:inset 0 0 0 1px var(--amber),0 0 24px rgba(255,181,71,.25)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) 28px 16px;transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
+.nav.sc{background:rgba(7,11,26,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+.logo{display:flex;align-items:center;gap:12px;font:400 1.7rem/1 'Instrument Serif',serif;text-decoration:none;letter-spacing:-.01em}
+.logo svg{width:26px;height:26px}
+.links{display:flex;gap:30px;align-items:center}
+.links a:not(.btn){text-decoration:none;font-size:.95rem;position:relative;padding:4px 0}
+.links a:not(.btn)::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--out)}
+.links a:hover::after,.links a.on::after{transform:none}
+.links .btn{padding:10px 24px}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--star);border-radius:99px;padding:9px 20px;font:inherit;cursor:pointer}
+.dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:50;display:grid;gap:16px}
+.dots a{display:block;width:9px;height:9px;border-radius:50%;background:var(--star);opacity:.3;position:relative;transition:opacity .3s,transform .3s,background .3s}
+.dots a.on{opacity:1;background:var(--amber);transform:scale(1.5)}
+.dots a::before{content:attr(data-l);position:absolute;right:20px;top:50%;transform:translateY(-50%);font:500 .68rem 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.12em;opacity:0;transition:opacity .3s;white-space:nowrap}
+.dots a:hover::before{opacity:.9}
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px}
+.hg{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center;position:relative}
+.hero p.lead{font-size:1.2rem;margin:30px 0 36px;max-width:44ch}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.const{position:absolute;right:-4%;top:-12%;width:60%;max-width:640px;opacity:.5;pointer-events:none;z-index:0}
+.const path{stroke:var(--star);stroke-width:1;fill:none;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:draw 3s var(--out) .6s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.const g{pointer-events:auto}
+.const circle{fill:var(--star);transition:r .3s,fill .3s}.const g:hover circle{r:7;fill:var(--amber)}
+.const text{font:500 11px 'DM Mono',monospace;fill:var(--amber);text-transform:uppercase;letter-spacing:.1em;opacity:0;transition:opacity .3s}.const g:hover text{opacity:1}
+.moonbox{position:relative;z-index:1;justify-self:center;width:min(420px,86vw)}
+.moonbox svg{width:100%;filter:drop-shadow(0 0 60px rgba(242,235,221,.22));animation:float 9s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(-14px) rotate(2deg)}}
+.mcard{margin-top:26px;border:1px solid var(--line);border-radius:20px;padding:18px 22px;background:rgba(7,11,26,.45);display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.mcard b{font:400 1.8rem/1 'Instrument Serif',serif;display:block;margin-top:2px}
+.scroll{position:absolute;left:28px;bottom:30px}
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1.1s var(--out),transform 1.1s var(--out);transition-delay:calc(var(--i,0)*110ms)}
+.rv.in{opacity:1;transform:none}
+.head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:56px}
+.head p{margin:0}
+/* objects */
+.objs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ob{border:1px solid var(--line);border-radius:24px;padding:12px 12px 26px;background:rgba(18,26,63,.35);transition:border-color .5s,transform .6s var(--out),box-shadow .6s}
+.ob:hover{border-color:rgba(255,181,71,.6);transform:translateY(-8px);box-shadow:0 30px 60px -30px rgba(255,181,71,.25)}
+.ob .im{aspect-ratio:4/3;border-radius:16px;overflow:hidden;margin-bottom:20px;background:var(--dusk)}
+.ob .im>*{width:100%;height:100%;transition:transform 1.4s var(--out)}.ob:hover .im>*{transform:scale(1.08)}
+.ob h3,.ob p,.ob .wow{margin-left:12px;margin-right:12px}
+.ob p{font-size:.95rem;margin-top:8px;margin-bottom:14px}
+.wow{display:flex;gap:6px;align-items:center}.wow i{width:7px;height:7px;border-radius:50%;background:var(--star);opacity:.2}.wow i.on{background:var(--amber);opacity:1;box-shadow:0 0 8px var(--amber)}
+.wow span{margin-right:6px}
+.note{margin-top:30px}
+/* scope */
+.scope{position:relative;height:min(72vh,660px);min-height:400px;border-radius:30px;overflow:hidden;background:#03050d;border:1px solid var(--line);--x:50%;--y:50%;touch-action:none;cursor:crosshair}
+.layer{position:absolute;inset:0}
+.base{background:radial-gradient(circle,rgba(242,235,221,.45) 1px,transparent 1.5px) 0 0/46px 46px,radial-gradient(circle,rgba(242,235,221,.3) 1px,transparent 1.5px) 17px 23px/71px 71px,radial-gradient(circle,rgba(242,235,221,.22) .8px,transparent 1.2px) 40px 9px/33px 33px}
+.rev{-webkit-mask-image:radial-gradient(circle 130px at var(--x) var(--y),#000 60%,transparent 100%);mask-image:radial-gradient(circle 130px at var(--x) var(--y),#000 60%,transparent 100%);background:radial-gradient(circle,#fff 1.4px,transparent 2px) 0 0/46px 46px,radial-gradient(circle,rgba(255,235,200,.9) 1.2px,transparent 1.8px) 17px 23px/71px 71px,radial-gradient(circle,rgba(170,200,255,.9) 1px,transparent 1.5px) 40px 9px/33px 33px,#0a1030}
+.o{position:absolute;transform:translate(-50%,-50%);text-align:center}
+.o em{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:8px;font:500 .72rem 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;color:var(--amber);font-style:normal}
+.neb{width:230px;height:170px;filter:blur(7px);background:radial-gradient(circle at 38% 45%,rgba(255,110,150,.95),transparent 56%),radial-gradient(circle at 64% 58%,rgba(90,140,255,.85),transparent 55%),radial-gradient(circle at 50% 30%,rgba(255,181,71,.55),transparent 50%)}
+.gal{width:260px;height:80px;transform:rotate(-24deg);background:radial-gradient(ellipse,#FFF1CC 0,rgba(255,181,71,.55) 30%,transparent 68%)}
+.pl{width:120px;height:90px;position:relative}.pl i{position:absolute;border-radius:50%;background:#cfe0ff;box-shadow:0 0 14px 4px rgba(150,190,255,.8)}
+.sat{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe3a6,#c58a35);position:relative;margin:0 auto}.sat::after{content:'';position:absolute;left:-26px;right:-26px;top:17px;height:12px;border:2px solid rgba(242,235,221,.8);border-radius:50%;transform:rotate(-18deg)}
+.lens{position:absolute;left:var(--x);top:var(--y);width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;border:2px solid rgba(242,235,221,.55);box-shadow:0 0 0 2000px rgba(0,0,0,.55),inset 0 0 40px rgba(255,181,71,.2);pointer-events:none}
+.lens::before,.lens::after{content:'';position:absolute;background:rgba(242,235,221,.3)}
+.lens::before{left:50%;top:10px;bottom:10px;width:1px}.lens::after{top:50%;left:10px;right:10px;height:1px}
+.scope .mono{position:absolute;left:24px;bottom:20px;z-index:3}
+/* book */
+.book{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.step{margin-bottom:38px}
+.step>.mono{display:block;margin-bottom:14px}
+.sess{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sess button{text-align:left;background:rgba(18,26,63,.35);border:1px solid var(--line);color:var(--star);border-radius:20px;padding:20px 22px;font:inherit;cursor:pointer;transition:border-color .4s,background .4s,transform .4s var(--out)}
+.sess button:hover{transform:translateY(-3px)}
+.sess button[aria-pressed=true]{border-color:var(--amber);background:rgba(255,181,71,.08)}
+.sess h3{font-size:1.5rem;margin-bottom:6px}.sess small{display:block;opacity:.7;font-size:.88rem;line-height:1.4;margin-bottom:10px}.sess b{font:400 1.4rem 'Instrument Serif',serif}
+.days{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:thin}
+.days button{flex:0 0 auto;min-width:86px;background:none;border:1px solid var(--line);color:var(--star);border-radius:18px;padding:12px 10px;font:inherit;cursor:pointer;text-align:center;transition:border-color .3s,background .3s}
+.days button b{display:block;font:400 1.8rem/1 'Instrument Serif',serif}
+.days button small{display:block;font:500 .66rem 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.days button[aria-pressed=true]{border-color:var(--amber);background:rgba(255,181,71,.1)}
+.days button:disabled{opacity:.3;cursor:not-allowed}
+.days .dk{color:var(--amber);opacity:1}
+.stp{display:inline-flex;align-items:center;gap:20px;border:1px solid var(--line);border-radius:99px;padding:6px}
+.stp button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(242,235,221,.1);color:var(--star);font-size:1.3rem;cursor:pointer;transition:background .3s}.stp button:hover{background:var(--amber);color:var(--night)}
+.stp b{font:400 1.8rem 'Instrument Serif',serif;min-width:1.5em;text-align:center}
+.sum{position:sticky;top:96px;border:1px solid var(--line);border-radius:28px;padding:34px;background:rgba(18,26,63,.5)}
+.sum dl{margin:22px 0;display:grid;gap:12px}.sum dl div{display:flex;justify-content:space-between;gap:20px;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.sum dt{opacity:.7}.sum dd{margin:0;text-align:right}
+.tot{font:400 3.4rem/1 'Instrument Serif',serif;margin:6px 0 20px}
+.sum input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--star);color:var(--star);font:inherit;padding:10px 0;margin-bottom:22px;border-radius:0}
+.sum input:focus{outline:none;border-color:var(--amber)}
+.tkt{display:none;border:1px solid var(--amber);border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(135deg,rgba(255,181,71,.16),rgba(18,26,63,.7));animation:tin .9s var(--out)}
+@keyframes tin{from{opacity:0;transform:translateY(24px) rotate(-1.5deg)}}
+.tkt .tp{padding:26px 28px}.tkt .bt{padding:20px 28px;border-top:2px dashed var(--amber);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.tkt .bt svg{height:44px;width:150px}.tkt .bt b{font:500 1.1rem 'DM Mono',monospace;letter-spacing:.14em}
+.tkt .bt{position:relative}
+.tkt .bt::before,.tkt .bt::after{content:'';position:absolute;top:-13px;width:24px;height:24px;border-radius:50%;background:var(--night);border:1px solid var(--amber)}
+.tkt .bt::before{left:-13px}.tkt .bt::after{right:-13px}
+.tkt h3{font-size:2.3rem;margin:8px 0 14px}.tkt p{margin:0;font-size:.95rem}
+/* facts + visit */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:36px 26px;border-left:1px solid var(--line)}.facts div:first-child{border-left:0}
+.facts b{display:block;font:400 clamp(3rem,5.4vw,4.8rem)/1 'Instrument Serif',serif}
+.bort{margin:50px 0 0}
+.bort .sc{position:relative;height:10px;border-radius:99px;background:linear-gradient(90deg,#0a0f2c,#3a3f80 40%,#c9b08a 75%,#ffb547);margin:14px 0 10px;box-shadow:0 0 0 1px var(--line)}
+.bort .sc i{position:absolute;top:-8px;left:0;width:26px;height:26px;border-radius:50%;background:var(--star);border:4px solid var(--night);box-shadow:0 0 18px var(--amber);transition:left 2.4s var(--out)}
+.bort .lb{display:flex;justify-content:space-between}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.visit .im{aspect-ratio:4/5;border-radius:200px 200px 24px 24px;overflow:hidden;background:var(--dusk);border:1px solid var(--line)}
+.visit dl{margin:26px 0 0}.visit dt{font:400 1.6rem 'Instrument Serif',serif;margin-top:16px;color:var(--amber)}.visit dd{margin:0}
+.bring{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.bring span{border:1px solid var(--line);border-radius:99px;padding:5px 16px;font-size:.9rem}
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.qs blockquote{margin:0;padding:34px 30px 10px;border-left:1px solid var(--line)}.qs blockquote:first-child{border-left:0;padding-left:0}
+.qs q{display:block;font:400 clamp(1.5rem,2.3vw,1.9rem)/1.15 'Instrument Serif',serif;quotes:none;margin-bottom:18px}
+footer{padding:100px 0 40px;border-top:1px solid var(--line);overflow:hidden}
+footer .fg{display:grid;grid-template-columns:1.2fr 1fr;gap:60px}
+.nl{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.nl input{flex:1;min-width:200px;background:transparent;border:1px solid var(--line);border-radius:99px;padding:14px 22px;color:var(--star);font:inherit}
+.nl input:focus{outline:none;border-color:var(--amber)}
+.word{font:400 clamp(5rem,20vw,19rem)/.8 'Instrument Serif',serif;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px var(--line);text-align:center;margin-top:70px;white-space:nowrap}
+#nm{margin:10px 0 0;color:var(--amber)}
+@media (max-width:960px){
+.burger{display:block}.dots{display:none}
+.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(7,11,26,.96);border-bottom:1px solid var(--line);padding:10px 28px 24px}
+.links.open{display:flex}.links a:not(.btn){padding:14px 0;font-size:1.1rem}.links .btn{margin-top:10px;justify-content:center}
+.hg,.book,.visit,footer .fg{grid-template-columns:1fr;gap:44px}
+.const{width:90%;right:-20%;top:-4%}.scroll{display:none}
+.objs{grid-template-columns:1fr 1fr}.sess{grid-template-columns:1fr}
+.sum{position:static}.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}
+.qs{grid-template-columns:1fr}.qs blockquote{border-left:0;padding-left:0}
+.visit .im{max-width:400px}section{padding:84px 0}.lens{width:200px;height:200px;margin:-100px 0 0 -100px}.rev{-webkit-mask-image:radial-gradient(circle 100px at var(--x) var(--y),#000 60%,transparent 100%);mask-image:radial-gradient(circle 100px at var(--x) var(--y),#000 60%,transparent 100%)}}
+@media (max-width:560px){.objs{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.const path{stroke-dashoffset:0}}
+</style>
+<noscript><style>.rv{opacity:1;transform:none}.const path{stroke-dashoffset:0}</style></noscript>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+<a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1l3.4 11.6L31 16l-11.6 3.4L16 31l-3.4-11.6L1 16l11.6-3.4z" fill="#FFB547"/></svg>Nakshatra</a>
+<nav class="links" id="links" aria-label="Main"><a href="#see">What you will see</a><a href="#scope">Eyepiece</a><a href="#book">Book a night</a><a href="#visit">Visit</a><a class="btn" href="#book">Reserve</a></nav>
+<button class="burger" aria-expanded="false" aria-controls="links">Menu</button>
+</header>
+<nav class="dots" aria-label="Sections"><a href="#top" data-l="Tonight"></a><a href="#see" data-l="The sky"></a><a href="#scope" data-l="Eyepiece"></a><a href="#book" data-l="Book"></a><a href="#visit" data-l="Visit"></a></nav>
+
+<main>
+<section class="hero" id="top"><div class="wrap hg">
+<svg class="const" viewBox="0 0 600 500" aria-label="The constellation Orion">
+<path style="--l:300" d="M300 60L190 90L270 250L230 420M300 60L400 110L350 240L420 400M270 250L310 245L350 240"/>
+<g><circle cx="300" cy="60" r="3"/><text x="312" y="56">Meissa</text></g>
+<g><circle cx="190" cy="90" r="6"/><text x="120" y="80">Betelgeuse</text></g>
+<g><circle cx="400" cy="110" r="4"/><text x="412" y="108">Bellatrix</text></g>
+<g><circle cx="270" cy="250" r="4"/><text x="196" y="254">Alnitak</text></g>
+<g><circle cx="310" cy="245" r="4"/><text x="296" y="226">Alnilam</text></g>
+<g><circle cx="350" cy="240" r="4"/><text x="362" y="244">Mintaka</text></g>
+<g><circle cx="230" cy="420" r="4"/><text x="150" y="438">Saiph</text></g>
+<g><circle cx="420" cy="400" r="6"/><text x="434" y="404">Rigel</text></g>
+</svg>
+<div style="position:relative;z-index:1">
+<p class="mono" style="margin-bottom:22px">Ananthagiri Hills · 90 minutes from Hyderabad</p>
+<h1>Come and meet<br><em>the night sky.</em></h1>
+<p class="lead">Telescope nights, naked-eye tours and astrophotography workshops under some of the darkest skies in the region. No experience needed, just curiosity and a warm jacket.</p>
+<div class="btns"><a class="btn" href="#book">Book a night</a><a class="btn g" href="#scope">Try the eyepiece</a></div>
+</div>
+<div class="moonbox">
+<svg viewBox="0 0 200 200" role="img" aria-label="Tonight's moon" id="moon"><defs><radialGradient id="lg" cx="40%" cy="38%"><stop offset="0" stop-color="#FBF6EA"/><stop offset="1" stop-color="#CFC4A8"/></radialGradient><clipPath id="lc"><path id="lp" d=""/></clipPath></defs>
+<circle cx="100" cy="100" r="80" fill="#0E1436" stroke="rgba(242,235,221,.18)"/>
+<g clip-path="url(#lc)"><circle cx="100" cy="100" r="80" fill="url(#lg)"/><g fill="rgba(60,50,30,.16)"><circle cx="74" cy="72" r="14"/><circle cx="122" cy="64" r="9"/><circle cx="132" cy="112" r="17"/><circle cx="88" cy="128" r="11"/><circle cx="64" cy="108" r="6"/><circle cx="108" cy="92" r="5"/><circle cx="148" cy="82" r="5"/></g></g></svg>
+<div class="mcard"><span class="mono">Tonight</span><span class="mono" style="text-align:right">Sky glow</span><b id="mph">Moon</b><b id="mil" style="text-align:right">0%</b><span class="mono" id="mfull" style="grid-column:1/-1;margin-top:8px"></span></div>
+</div>
+<span class="mono scroll">Scroll to look up</span>
+</div></section>
+
+<section id="see"><div class="wrap">
+<div class="head rv"><h2>What you<br>will <em>see</em></h2><p>Our guides choose the best targets on the night, depending on the season, the moon and the weather. These are some of the favourites.</p></div>
+<div class="objs" id="objs"></div>
+<p class="mono note rv">Targets change with the season. We always tell you what is up before you leave the car park.</p>
+</div></section>
+
+<section id="scope"><div class="wrap">
+<div class="head rv"><h2>Look through<br>the <em>eyepiece</em></h2><p>The sky is full of things you cannot see with your eyes alone. Move your cursor, or drag a finger, to sweep the telescope across the dark.</p></div>
+<div class="scope rv" id="sb" role="img" aria-label="Interactive telescope view revealing a nebula, a galaxy, a star cluster and Saturn">
+<div class="layer base"></div>
+<div class="layer rev">
+<div class="o" style="left:26%;top:40%"><div class="neb"></div><em>Orion Nebula</em></div>
+<div class="o" style="left:70%;top:62%"><div class="gal"></div><em>Andromeda Galaxy</em></div>
+<div class="o" style="left:62%;top:22%"><div class="pl"><i style="left:20px;top:20px;width:12px;height:12px"></i><i style="left:46px;top:8px;width:9px;height:9px"></i><i style="left:62px;top:34px;width:13px;height:13px"></i><i style="left:36px;top:44px;width:10px;height:10px"></i><i style="left:82px;top:16px;width:8px;height:8px"></i><i style="left:12px;top:56px;width:7px;height:7px"></i></div><em>The Pleiades</em></div>
+<div class="o" style="left:34%;top:76%"><div class="sat"></div><em>Saturn</em></div>
+</div>
+<div class="lens"></div>
+<span class="mono">Telescope view · 120× magnification</span>
+</div>
+</div></section>
+
+<section id="book"><div class="wrap">
+<div class="head rv"><h2>Book a<br><em>night</em></h2><p>Pick an experience, choose a date and see how dark the sky will be. We cap every group so nobody waits for a turn at the telescope.</p></div>
+<div class="book">
+<div>
+<div class="step rv"><span class="mono">01 · Choose an experience</span><div class="sess" id="sess"></div></div>
+<div class="step rv"><span class="mono">02 · Choose a night</span><div class="days" id="days" role="group" aria-label="Dates"></div><p class="mono" id="dnote" style="margin:6px 0 0"></p></div>
+<div class="step rv"><span class="mono">03 · How many people?</span><div class="stp"><button id="gm" aria-label="Fewer guests">−</button><b id="gn">2</b><button id="gp" aria-label="More guests">+</button></div> <span class="mono" id="gl" style="margin-left:14px"></span></div>
+</div>
+<aside class="sum rv" id="sum">
+<div id="form">
+<span class="mono">Your night</span>
+<dl><div><dt>Experience</dt><dd id="s1"></dd></div><div><dt>Date</dt><dd id="s2"></dd></div><div><dt>Sky tonight</dt><dd id="s3"></dd></div><div><dt>Guests</dt><dd id="s4"></dd></div></dl>
+<div class="mono">Total</div><div class="tot" id="tot"></div>
+<input id="nm_in" placeholder="Your name" aria-label="Your name" autocomplete="name">
+<button class="btn" id="rs" style="width:100%;justify-content:center">Reserve my seats</button>
+</div>
+<div class="tkt" id="tkt"></div>
+</aside>
+</div>
+</div></section>
+
+<section style="padding-top:40px"><div class="wrap">
+<div class="facts rv" id="facts"><div><b data-to="1100">0</b><span class="mono">Metres above sea level</span></div><div><b>Bortle 3</b><span class="mono">Sky darkness class</span></div><div><b data-to="240">0</b><span class="mono">Clear nights a year</span></div><div><b data-to="12">0</b><span class="mono">Telescopes on site</span></div></div>
+<div class="bort rv"><span class="mono">Sky quality scale</span><div class="sc"><i id="bm"></i></div><div class="lb mono"><span>Pristine dark</span><span>Rural</span><span>Suburb</span><span>City centre</span></div></div>
+</div></section>
+
+<section id="visit"><div class="wrap visit">
+<div class="rv">
+<h2>Find us in<br>the <em>dark</em></h2>
+<dl><dt>Where</dt><dd>Nakshatra Observatory, Ananthagiri Hills,<br>Vikarabad, Telangana (90 minutes from Hyderabad)</dd><dt>When</dt><dd>Gates open at sunset. Sessions start after dusk and run for 2 to 4 hours, every night except during heavy cloud.</dd><dt>Get in touch</dt><dd>+91 98765 43210<br>stay@nakshatra.example</dd></dl>
+<div class="bring"><span>Warm jacket</span><span>Comfortable shoes</span><span>Red torch (we lend)</span><span>No white lights, please</span></div>
+</div>
+<div class="im rv"><img src="images/dome.jpg" alt="The observatory dome under the Milky Way" loading="lazy" onerror="this.remove()"></div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap"><div class="qs rv">
+<blockquote><q>My daughter saw Saturn&rsquo;s rings and went completely silent. Best evening of her life.</q><span class="mono">Priya, with family</span></blockquote>
+<blockquote><q>Our guide made faint galaxies feel like old friends. We never looked at the sky the same way again.</q><span class="mono">Rahul, first-timer</span></blockquote>
+<blockquote><q>The astrophotography workshop paid for itself in one night. I came home with a real Orion Nebula shot.</q><span class="mono">Meera, workshop guest</span></blockquote>
+</div></div></section>
+</main>
+
+<footer><div class="wrap">
+<div class="fg"><div><h2 style="font-size:clamp(2.4rem,5vw,4rem)">Never miss<br>a <em>good sky.</em></h2></div>
+<div><p>We email a short note when something special is coming: meteor showers, eclipses, rare planet lineups. No spam, only skies.</p><form class="nl" id="nl"><input type="email" required placeholder="you@email.com" aria-label="Email"><button class="btn" type="submit">Notify me</button></form><p id="nm" role="status"></p><p class="mono" style="margin-top:36px">© 2026 Nakshatra Observatory. A sample website.</p></div></div>
+<div class="word" aria-hidden="true">Nakshatra</div>
+</div></footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* nav */
+const nav=$('#nav'),bg=$('.burger'),lk=$('#links');
+bg.onclick=()=>{const o=lk.classList.toggle('open');bg.setAttribute('aria-expanded',o);bg.textContent=o?'Close':'Menu'};
+$$('#links a').forEach(a=>a.addEventListener('click',()=>{lk.classList.remove('open');bg.textContent='Menu'}));
+addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>40),{passive:true});
+const sl=$$('#links a:not(.btn),.dots a');
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)sl.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['top','see','scope','book','visit'].forEach(id=>spy.observe($('#'+id)));
+/* reveal + counters */
+const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target)}}),{threshold:.1});
+$$('.rv').forEach(el=>rm?el.classList.add('in'):rio.observe(el));
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const el=e.target,to=+el.dataset.to,t0=performance.now();
+if(rm){el.textContent=to.toLocaleString('en-IN');return}const f=t=>{const p=Math.min(1,(t-t0)/1800);el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('en-IN');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}),{threshold:.6});
+$$('[data-to]').forEach(el=>cio.observe(el));
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#bm').style.left='calc(22% - 13px)';o.disconnect()}}),{threshold:.8}).observe($('.bort'));
+/* star field */
+const cv=$('#stars'),cx=cv.getContext('2d');let W,H,dpr,S=[],mx=.5,my=.5,sh=null;
+function init(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+const n=Math.min(380,Math.floor(W*H/4200));S=Array.from({length:n},()=>{const c=Math.random();return{x:Math.random(),y:Math.random(),r:Math.random()*1.3+.25,a:Math.random()*.6+.3,s:Math.random()*2+.5,p:Math.random()*6.28,d:Math.random()*.9+.1,c:c<.1?'255,181,71':c<.25?'170,200,255':'242,235,221'}})}
+function draw(t){cx.clearRect(0,0,cv.width,cv.height);const sy=scrollY;
+for(const s of S){const tw=rm?1:.62+.38*Math.sin(t/1000*s.s+s.p);
+const x=(((s.x*W-(mx-.5)*26*s.d)%W)+W)%W,y=(((s.y*H-sy*s.d*.12-(my-.5)*26*s.d)%H)+H)%H;
+cx.fillStyle='rgba('+s.c+','+(s.a*tw).toFixed(3)+')';cx.beginPath();cx.arc(x*dpr,y*dpr,s.r*dpr,0,6.283);cx.fill()}
+if(!rm){if(!sh&&Math.random()<.0014)sh={x:Math.random()*W*.8+W*.15,y:Math.random()*H*.35,l:0};
+if(sh){sh.l+=.025;const a=Math.sin(Math.min(1,sh.l)*Math.PI),x=sh.x-sh.l*260,y=sh.y+sh.l*130,g=cx.createLinearGradient(x*dpr,y*dpr,(x+90)*dpr,(y-45)*dpr);
+g.addColorStop(0,'rgba(255,235,200,'+a+')');g.addColorStop(1,'rgba(255,235,200,0)');cx.strokeStyle=g;cx.lineWidth=1.6*dpr;cx.beginPath();cx.moveTo(x*dpr,y*dpr);cx.lineTo((x+90)*dpr,(y-45)*dpr);cx.stroke();if(sh.l>1)sh=null}
+requestAnimationFrame(draw)}}
+init();addEventListener('resize',()=>{init();rm&&draw(0)});
+addEventListener('pointermove',e=>{mx=e.clientX/W;my=e.clientY/H},{passive:true});
+rm?draw(0):requestAnimationFrame(draw);
+/* moon */
+const SYN=29.530588853,REF=Date.UTC(2000,0,6,18,14);
+const phase=d=>(((d-REF)/864e5)%SYN+SYN)%SYN/SYN;
+function moonPath(f){const k=Math.cos(2*Math.PI*f),rx=(80*Math.abs(k)).toFixed(2),wax=f<.5,s1=wax?1:0,vr=wax?k>0:k<0;return'M100 20A80 80 0 0 '+s1+' 100 180A'+rx+' 80 0 0 '+(vr?0:1)+' 100 20Z'}
+function pname(f){return f<.03||f>.97?'New moon':f<.22?'Waxing crescent':f<.28?'First quarter':f<.47?'Waxing gibbous':f<.53?'Full moon':f<.72?'Waning gibbous':f<.78?'Last quarter':'Waning crescent'}
+const lit=f=>Math.round((1-Math.cos(2*Math.PI*f))/2*100);
+const now=Date.now(),f0=phase(now),fmt=ms=>new Date(ms).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+$('#lp').setAttribute('d',moonPath(f0));$('#mph').textContent=pname(f0);$('#mil').textContent=lit(f0)+'% lit';
+const dF=((.5-f0+1)%1)*SYN;$('#mfull').textContent='Next full moon '+fmt(now+dF*864e5)+' · New moon '+fmt(now+((1-f0)%1)*SYN*864e5);
+/* objects */
+function OBJ(k){const bgd='<rect width="400" height="300" fill="#0a1030"/>',st=Array.from({length:40},(_,i)=>'<circle cx="'+((i*97)%400)+'" cy="'+((i*61)%300)+'" r="'+(.6+(i%3)*.4)+'" fill="#F2EBDD" opacity="'+(.3+(i%4)*.15)+'"/>').join('');let b='';
+if(k===0)b='<circle cx="200" cy="150" r="96" fill="#d9d1bc"/><g fill="#a89f88" opacity=".6"><circle cx="165" cy="115" r="22"/><circle cx="235" cy="105" r="13"/><circle cx="240" cy="178" r="26"/><circle cx="170" cy="198" r="15"/></g>';
+if(k===1)b='<circle cx="200" cy="150" r="52" fill="#d9a85a"/><ellipse cx="200" cy="150" rx="130" ry="26" fill="none" stroke="#F2EBDD" stroke-width="5" transform="rotate(-18 200 150)" opacity=".85"/>';
+if(k===2)b='<defs><clipPath id="jc"><circle cx="200" cy="150" r="78"/></clipPath></defs><circle cx="200" cy="150" r="78" fill="#e1c9a0"/><g clip-path="url(#jc)" fill="#b4723f" opacity=".55"><rect x="110" y="104" width="180" height="12"/><rect x="110" y="132" width="180" height="16"/><rect x="110" y="168" width="180" height="10"/></g><g fill="#F2EBDD"><circle cx="70" cy="146" r="3"/><circle cx="108" cy="154" r="2.4"/><circle cx="318" cy="148" r="3"/><circle cx="352" cy="152" r="2.4"/></g>';
+if(k===3)b='<g style="filter:blur(10px)"><circle cx="170" cy="140" r="70" fill="#ff6e96" opacity=".8"/><circle cx="240" cy="165" r="62" fill="#5a8cff" opacity=".7"/><circle cx="205" cy="105" r="50" fill="#ffb547" opacity=".5"/></g>';
+if(k===4)b='<g fill="#cfe0ff">'+[[150,110,6],[196,86,5],[240,124,7],[212,172,5],[158,176,4],[270,86,4],[128,148,3]].map(p=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+p[2]+'"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+p[2]*3+'" opacity=".15"/>').join('')+'</g>';
+if(k===5)b='<ellipse cx="200" cy="150" rx="150" ry="44" transform="rotate(-24 200 150)" fill="#ffb547" opacity=".25"/><ellipse cx="200" cy="150" rx="100" ry="26" transform="rotate(-24 200 150)" fill="#ffe9bf" opacity=".5"/><ellipse cx="200" cy="150" rx="30" ry="12" transform="rotate(-24 200 150)" fill="#fff6dd"/>';
+return'<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'+bgd+st+b+'</svg>'}
+const OB=[['The Moon up close','Craters, mountains and shadows sharp enough to cast.',5],['Saturn&rsquo;s rings','Tilted, tiny and unforgettable through the eyepiece.',5],['Jupiter and its moons','Four small moons lined up like beads, changing every night.',4],['The Orion Nebula','A stellar nursery 1,300 light years away, glowing in the winter sky.',4],['The Pleiades','Seven sisters and dozens more, blue-white and sparkling.',3],['Andromeda Galaxy','Light older than our species, landing in your eye.',3]];
+$('#objs').innerHTML=OB.map((o,i)=>'<article class="ob rv" style="--i:'+(i%3)+'"><div class="im"><img src="images/object-'+(i+1)+'.jpg" alt="'+o[0].replace(/&rsquo;/g,'’')+'" loading="lazy" onerror="this.parentNode.innerHTML=OBJ('+i+')"></div><h3>'+o[0]+'</h3><p>'+o[1]+'</p><div class="wow mono"><span>Wow</span>'+[1,2,3,4,5].map(n=>'<i class="'+(n<=o[2]?'on':'')+'"></i>').join('')+'</div></article>').join('');
+$$('#objs .rv').forEach(el=>rm?el.classList.add('in'):rio.observe(el));
+/* eyepiece */
+const sb=$('#sb');let usr=false;
+function setXY(x,y){sb.style.setProperty('--x',x+'px');sb.style.setProperty('--y',y+'px')}
+sb.addEventListener('pointermove',e=>{usr=true;const r=sb.getBoundingClientRect();setXY(e.clientX-r.left,e.clientY-r.top)});
+sb.addEventListener('pointerdown',e=>{usr=true;const r=sb.getBoundingClientRect();setXY(e.clientX-r.left,e.clientY-r.top)});
+(function auto(t){if(!usr){const r=sb.getBoundingClientRect();if(rm)setXY(r.width*.5,r.height*.5);else{setXY(r.width*(.5+.32*Math.sin(t/2600)),r.height*(.5+.3*Math.sin(t/1900+1)));requestAnimationFrame(auto)}}})(0);
+/* booking */
+const SS=[['Naked-eye night','A guided tour of constellations, planets and the Milky Way, no equipment needed. About 2 hours.',899,24,0],['Telescope night','Use our big telescopes to see planets, nebulae and galaxies. About 3 hours.',1499,12,0],['Astrophotography workshop','Shoot the sky with your own camera and learn to process it. About 4 hours.',3500,8,0],['Private dome','The dome and a guide, just for your group of up to six. Flat price.',12000,6,1]];
+let si=1,di=0,gn=2;const inr=n=>'₹'+n.toLocaleString('en-IN');
+const D=Array.from({length:14},(_,i)=>{const d=new Date();d.setDate(d.getDate()+i+1);d.setHours(20,0,0,0);return{d,lit:lit(phase(d.getTime()))}});
+const left=(s,i)=>{const h=(i*7+s*13+3)%11;return h===10?0:Math.max(1,SS[s][3]-Math.floor(h*SS[s][3]/12))};
+$('#sess').innerHTML=SS.map((s,i)=>'<button data-i="'+i+'" aria-pressed="'+(i===si)+'"><h3>'+s[0]+'</h3><small>'+s[1]+'</small><b>'+inr(s[2])+'</b> <span class="mono">'+(s[4]?'flat':'per person')+'</span></button>').join('');
+function drawDays(){$('#days').innerHTML=D.map((x,i)=>{const l=left(si,i),ds=x.d.toLocaleDateString('en-IN',{weekday:'short'});return'<button data-i="'+i+'" aria-pressed="'+(i===di)+'"'+(l?'':' disabled')+'><small>'+ds+'</small><b>'+x.d.getDate()+'</b><small>'+x.d.toLocaleDateString('en-IN',{month:'short'})+'</small><small class="'+(x.lit<25?'dk':'')+'">'+(l?x.lit+'% moon':'Full')+'</small></button>'}).join('')}
+function sum(){const s=SS[si],x=D[di],l=left(si,di);if(!l){const n=D.findIndex((_,i)=>left(si,i));di=n<0?0:n}const L=left(si,di),X=D[di];gn=Math.min(gn,s[4]?6:Math.min(8,L));
+const dk=X.lit<20?'Very dark. Great for faint galaxies':X.lit<50?'Fairly dark':'Bright moon. Best for planets and the Moon';
+$('#s1').textContent=s[0];$('#s2').textContent=X.d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});$('#s3').textContent=X.lit+'% moon. '+dk;$('#s4').textContent=gn+(gn>1?' guests':' guest');
+$('#gn').textContent=gn;$('#gl').textContent=(s[4]?'Up to 6 in your group':L+' seats left');$('#tot').textContent=inr(s[4]?s[2]:s[2]*gn);$('#dnote').textContent=D[di].lit<25?'Darkest nights are marked in amber':'Amber dates have the darkest skies';drawDays()}
+$('#sess').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;si=+b.dataset.i;$$('#sess button').forEach(x=>x.setAttribute('aria-pressed',x===b));sum()});
+$('#days').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;di=+b.dataset.i;sum()});
+$('#gm').onclick=()=>{gn=Math.max(1,gn-1);sum()};$('#gp').onclick=()=>{const s=SS[si],mx2=s[4]?6:Math.min(8,left(si,di));gn=Math.min(mx2,gn+1);sum()};
+$('#rs').onclick=()=>{const nm=$('#nm_in');if(!nm.value.trim()){nm.focus();nm.placeholder='Please add your name';return}
+const ref='NKS-'+Math.random().toString(36).slice(2,6).toUpperCase(),s=SS[si],X=D[di];
+let bars='',r=rng(ref.split('').reduce((a,c)=>a*31+c.charCodeAt(0),7)),x=0;while(x<150){const w=1+(r()*4|0);bars+='<rect x="'+x+'" y="0" width="'+w+'" height="44" fill="#F2EBDD"/>';x+=w+1+(r()*3|0)}
+$('#tkt').innerHTML='<div class="tp"><span class="mono">Nakshatra Observatory · Boarding pass</span><h3>'+s[0]+'</h3><p>'+nm.value.trim()+' · '+gn+(gn>1?' guests':' guest')+'</p><p>'+X.d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})+'. Gates open at sunset.</p></div><div class="bt"><svg viewBox="0 0 150 44" aria-hidden="true">'+bars+'</svg><b>'+ref+'</b></div><div class="tp" style="padding-top:0"><button class="btn g" id="again" style="margin-top:12px">Book another night</button></div>';
+$('#form').style.display='none';$('#tkt').style.display='block';$('#again').onclick=()=>{$('#tkt').style.display='none';$('#form').style.display='block';nm.value=''}};
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+di=Math.max(0,D.findIndex((x,i)=>left(si,i)&&x.lit<25));sum();
+$('#nl').onsubmit=e=>{e.preventDefault();$('#nm').textContent='Noted. We will write when the sky is worth it.';e.target.reset()};
+</script>
+</body>
+</html>
